@@ -13,12 +13,20 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 tab1, tab2 , tab3 ,tab4 = st.tabs(["Home", "search&Recommend","Genre" ,"Special"])
-popular_df = pd.read_pickle("populer.pkl")
-books = pd.read_pickle("books.pkl")
-books1 = pd.read_pickle("book1.pkl")
-pt = pd.read_pickle("pt.pkl")
-similarity_scores = pd.read_pickle("similarity_scores.pkl")
-best_genre = pd.read_pickle("best_genre.pkl")
+@st.cache_resource
+def load_data():
+
+    popular_df = pd.read_pickle("populer.pkl")
+    books = pd.read_pickle("books.pkl")
+    books1 = pd.read_pickle("book1.pkl")
+    pt = pd.read_pickle("pt.pkl")
+    similarity_scores = pd.read_pickle("similarity_scores.pkl")
+    best_genre = pd.read_pickle("best_genre.pkl")
+
+    return popular_df, books, books1, pt, similarity_scores, best_genre
+
+
+popular_df, books, books1, pt, similarity_scores, best_genre = load_data()
 
 
 with tab1:
@@ -74,7 +82,7 @@ with tab2:
     bookname = st.text_input("enter your favorite book ")
     if bookname:
         if bookname.strip().lower() not in pt.index.str.strip().str.lower().values:
-            st.error("This book is not available in the dataset.")
+            st.error("This book is not available.")
 
         else:
             st.success("your favorite book and also some recommendations for you")
