@@ -12,7 +12,7 @@ st.markdown("""
         }
 </style>
 """, unsafe_allow_html=True)
-tab1, tab2 , tab3 ,tab4 = st.tabs(["Home", "search&Recommend","Genre" ,"Special"])
+tab1, tab2 ,tab3 ,tab4 = st.tabs(["Home", "search&Recommend","Genre" ,"Special"])
 @st.cache_resource
 def load_data():
 
@@ -23,10 +23,10 @@ def load_data():
     similarity_scores = pd.read_pickle("similarity_scores.pkl")
     best_genre = pd.read_pickle("best_genre.pkl")
 
-    return popular_df, books, books1, pt, similarity_scores, best_genre
+    return popular_df, books,books1, pt,similarity_scores,best_genre
 
 
-popular_df, books, books1, pt, similarity_scores, best_genre = load_data()
+popular_df,books, books1,pt,similarity_scores,best_genre = load_data()
 
 
 with tab1:
